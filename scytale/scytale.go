@@ -5,6 +5,7 @@ import (
 	"strings"
 )
 
+// Encipher enciphers a plaintext with the given keylength (representing the diameter of the scytale).
 func Encipher(plaintext string, keyLength int) (string, error) {
 	if keyLength <= 0 {
 		return "", errors.New("keyLength cannot be less or equal to 0")

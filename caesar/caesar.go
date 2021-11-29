@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	freqs_eng = []float32{
+	freqsEng = []float32{
 		'a': 8.12,
 		'b': 1.49,
 		'c': 2.71,
@@ -34,9 +34,9 @@ var (
 		'y': 2.11,
 		'z': 0.07}
 
-	freqs_fr = []float32{}
+	freqsFr = []float32{}
 
-	freqs_init = []float32{
+	freqsInit = []float32{
 		'a': 0,
 		'b': 0,
 		'c': 0,
@@ -87,16 +87,16 @@ func Encipher(plaintext string, shift int) string {
 	return string(bytes)
 }
 
-// Decipher attempts to guess the shift of a ciphertext.
+// Decipher attempts to guess the shift of a caesar ciphertext.
 func Decipher(in, lang string) (int, string) {
-	var freqs_ref []float32
+	var freqsRef []float32
 	switch lang {
 	case "eng":
-		freqs_ref = freqs_eng
+		freqsRef = freqsEng
 	case "fr":
-		freqs_ref = freqs_fr
+		freqsRef = freqsFr
 	default:
-		freqs_ref = freqs_eng
+		freqsRef = freqsEng
 	}
 
 	in = strings.ToLower(in)
@@ -105,7 +105,7 @@ func Decipher(in, lang string) (int, string) {
 	min := float32(math.MaxFloat32)
 	shift := 0
 	for i := 0; i < 26; i++ {
-		err := computeErrorSquared(freqs_ref, freqs, i)
+		err := computeErrorSquared(freqsRef, freqs, i)
 		if err < min {
 			min = err
 			shift = i
@@ -116,7 +116,7 @@ func Decipher(in, lang string) (int, string) {
 }
 
 func countFrequencies(in string) []float32 {
-	freqs := freqs_init
+	freqs := freqsInit
 
 	var inputChars float32
 	for _, r := range in {
