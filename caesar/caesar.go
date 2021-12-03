@@ -3,66 +3,8 @@ package caesar
 import (
 	"math"
 	"strings"
-)
 
-var (
-	freqsEng = []float32{
-		'a': 8.12,
-		'b': 1.49,
-		'c': 2.71,
-		'd': 4.32,
-		'e': 12.02,
-		'f': 2.3,
-		'g': 2.03,
-		'h': 5.92,
-		'i': 7.31,
-		'j': 0.10,
-		'k': 0.69,
-		'l': 3.98,
-		'm': 2.61,
-		'n': 6.95,
-		'o': 7.68,
-		'p': 1.82,
-		'q': 0.11,
-		'r': 6.02,
-		's': 6.28,
-		't': 9.10,
-		'u': 2.88,
-		'v': 1.11,
-		'w': 2.09,
-		'x': 0.17,
-		'y': 2.11,
-		'z': 0.07}
-
-	freqsFr = []float32{}
-
-	freqsInit = []float32{
-		'a': 0,
-		'b': 0,
-		'c': 0,
-		'd': 0,
-		'e': 0,
-		'f': 0,
-		'g': 0,
-		'h': 0,
-		'i': 0,
-		'j': 0,
-		'k': 0,
-		'l': 0,
-		'm': 0,
-		'n': 0,
-		'o': 0,
-		'p': 0,
-		'q': 0,
-		'r': 0,
-		's': 0,
-		't': 0,
-		'u': 0,
-		'v': 0,
-		'w': 0,
-		'x': 0,
-		'y': 0,
-		'z': 0}
+	"github.com/hjwk/decipher/common"
 )
 
 // Encipher encrypts plaintext with a given shift.
@@ -92,11 +34,11 @@ func Decipher(in, lang string) (int, string) {
 	var freqsRef []float32
 	switch lang {
 	case "eng":
-		freqsRef = freqsEng
+		freqsRef = common.FreqsEng
 	case "fr":
-		freqsRef = freqsFr
+		freqsRef = common.FreqsFr
 	default:
-		freqsRef = freqsEng
+		freqsRef = common.FreqsEng
 	}
 
 	in = strings.ToLower(in)
@@ -116,7 +58,7 @@ func Decipher(in, lang string) (int, string) {
 }
 
 func countFrequencies(in string) []float32 {
-	freqs := freqsInit
+	freqs := common.FreqsInit
 
 	var inputChars float32
 	for _, r := range in {

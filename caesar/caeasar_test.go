@@ -49,23 +49,35 @@ func TestDecipher(t *testing.T) {
 		expectedShift int
 		expectedText  string
 	}{
-		"Not encoded": {
+		"Not encoded eng": {
 			"this string is not encoded, and is quite short",
 			"eng",
 			0,
 			"this string is not encoded, and is quite short",
 		},
-		"Basic": {
+		"Not encoded fr": {
+			"ce message n'est pas encode",
+			"fr",
+			0,
+			"ce message n'est pas encode",
+		},
+		"Basic eng": {
 			"wklv lv d whvw",
 			"eng",
 			3,
 			"this is a test",
 		},
+		"Basic fr": {
+			"fhfl hvw xq whvw",
+			"fr",
+			3,
+			"ceci est un test",
+		},
 	}
 
 	for name, tc := range testCases {
 		t.Run(name, func(t *testing.T) {
-			shift, msg := Decipher(tc.in, "eng")
+			shift, msg := Decipher(tc.in, tc.lang)
 			assert.Equal(t, tc.expectedShift, shift)
 			assert.Equal(t, tc.expectedText, msg)
 		})
